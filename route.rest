@@ -1,0 +1,13 @@
+GET http://localhost:3500/bugs
+
+###
+GET http://localhost:3500/bugs/5448
+
+###
+POST http://localhost:3500/bugs
+content-type: application/json
+
+{
+    "issue": "issue3",
+    "details": "details3"
+}
