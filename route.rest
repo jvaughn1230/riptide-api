@@ -1,13 +1,24 @@
 GET http://localhost:3500/bugs
 
 ###
-GET http://localhost:3500/bugs/5448
+GET http://localhost:3500/bugs/64b5b2461f038848968c3058
 
 ###
 POST http://localhost:3500/bugs
 content-type: application/json
 
 {
-    "issue": "issue3",
-    "details": "details3"
+    "issue": "issue6",
+    "details": "details6"
 }
+
+###
+PATCH http://localhost:3500/bugs/64b5b2461f038848968c3058
+content-type: application/json
+
+{
+    "details": "update here"
+}
+
+###
+DELETE http://localhost:3500/bugs/64b5b2461f038848968c3058

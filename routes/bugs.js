@@ -13,8 +13,8 @@ router.get("/", async (req, res) => {
 });
 
 //get single bug
-router.get("/:id", (req, res) => {
-  res.send(req.params.id);
+router.get("/:id", getBug, (req, res) => {
+  res.json(res.bug);
 });
 
 //add bug
@@ -32,10 +32,42 @@ router.post("/", async (req, res) => {
 });
 
 //update bug
-router.patch("/:id", (req, res) => {});
+router.patch("/:id", getBug, async (req, res) => {
+  if (req.body.details != null) {
+    res.bug.details = req.bug.details;
+  }
+  try {
+    const updatedBug = await res.bug.save();
+    res.json(updatedBug);
+  } catch {
+    res.status(400).json(err.message);
+  }
+});
 
-//delete bug
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", getBug, async (req, res) => {
+  try {
+    res.bug.remove();
+    res.json({ message: "bug deleted" });
+  } catch {
+    (err) => {
+      res.status(500).json({ message: err.message });
+    };
+  }
+});
+
+async function getBug(req, res, next) {
+  let bug;
+  try {
+    bug = await bugModel.findById(req.params.id);
+    if (bug == null) {
+      return res.status(404).json({ message: "Cannot find bug" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+  res.bug = bug;
+  next();
+}
 
 router.post("/addbug", (req, res) => {
   bugModel
