@@ -8,8 +8,8 @@ POST http://localhost:3500/bugs
 content-type: application/json
 
 {
-    "issue": "issue6",
-    "details": "details6"
+    "issue": "issue10",
+    "details": "details10"
 }
 
 ###

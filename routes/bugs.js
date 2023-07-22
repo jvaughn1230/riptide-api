@@ -1,5 +1,5 @@
 const express = require("express");
-const bugModel = require("../model/bugmodel");
+const bugModel = require("../model/bugModel");
 const router = express.Router();
 
 //get all bugs
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 //get single bug
 router.get("/:id", getBug, (req, res) => {
-  res.json(res.bug);
+  res.send(res.bug.issue);
 });
 
 //add bug
@@ -31,22 +31,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-//update bug
-router.patch("/:id", getBug, async (req, res) => {
-  if (req.body.details != null) {
-    res.bug.details = req.bug.details;
-  }
-  try {
-    const updatedBug = await res.bug.save();
-    res.json(updatedBug);
-  } catch {
-    res.status(400).json(err.message);
-  }
-});
-
 router.delete("/:id", getBug, async (req, res) => {
   try {
-    res.bug.remove();
+    await res.bug.remove();
     res.json({ message: "bug deleted" });
   } catch {
     (err) => {
@@ -55,6 +42,7 @@ router.delete("/:id", getBug, async (req, res) => {
   }
 });
 
+// Middleware
 async function getBug(req, res, next) {
   let bug;
   try {

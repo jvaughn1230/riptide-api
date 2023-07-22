@@ -19,6 +19,7 @@ db.once("open", () => console.log("db connected"));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
 app.use("/auth", require("./routes/auth"));
 app.use("/bugs", require("./routes/bugs"));
