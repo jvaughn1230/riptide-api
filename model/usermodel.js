@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   bugs: Array,
 });
 
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   try {
     if (!this.isModified("password")) {
       return next();
