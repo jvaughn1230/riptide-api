@@ -1,11 +1,13 @@
 const express = require("express");
-const bugModel = require("../model/bugModel");
+const bugSchema = require("../model/bugModel");
 const router = express.Router();
+
+// TODO: fix priority accepting non enum values
 
 //get all bugs
 router.get("/", async (req, res) => {
   try {
-    const bugs = await bugModel.find({});
+    const bugs = await bugSchema.find({});
     res.json(bugs);
   } catch (err) {
     res.status(500).json(err.message);
@@ -14,12 +16,12 @@ router.get("/", async (req, res) => {
 
 //get single bug
 router.get("/:id", getBug, (req, res) => {
-  res.send(res.bug.issue);
+  res.send(res.bug);
 });
 
 //add bug
 router.post("/", async (req, res) => {
-  const bug = new bugModel({
+  const bug = new bugSchema({
     issue: req.body.issue,
     details: req.body.details,
   });
@@ -31,9 +33,25 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update Bug
+router.patch("/:id", getBug, async (req, res) => {
+  console.log("Bug: " + res.bug);
+  const updates = req.body;
+  console.log("updates" + updates);
+  try {
+    await bugSchema.updateOne(res.bug, updates);
+    res.json("updated");
+  } catch {
+    (err) => {
+      res.status(500).json({ message: err.message });
+    };
+  }
+});
+
+// Delete a bug
 router.delete("/:id", getBug, async (req, res) => {
   try {
-    await res.bug.remove();
+    await res.bug.deleteOne();
     res.json({ message: "bug deleted" });
   } catch {
     (err) => {
@@ -46,7 +64,7 @@ router.delete("/:id", getBug, async (req, res) => {
 async function getBug(req, res, next) {
   let bug;
   try {
-    bug = await bugModel.findById(req.params.id);
+    bug = await bugSchema.findById(req.params.id);
     if (bug == null) {
       return res.status(404).json({ message: "Cannot find bug" });
     }
@@ -57,14 +75,14 @@ async function getBug(req, res, next) {
   next();
 }
 
-router.post("/addbug", (req, res) => {
-  bugModel
-    .create(req.body)
-    .then((bug) => {
-      if (!bug) return res.statusMessage(400).send("there was an error");
-      res.send("Bug Created");
-    })
-    .catch((err) => res.status(400).send(err));
-});
+// router.post("/addbug", (req, res) => {
+//   bugSchema
+//     .create(req.body)
+//     .then((bug) => {
+//       if (!bug) return res.statusMessage(400).send("there was an error");
+//       res.send("Bug Created");
+//     })
+//     .catch((err) => res.status(400).send(err));
+// });
 
 module.exports = router;
