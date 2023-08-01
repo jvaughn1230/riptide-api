@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// !Need to fix enum issue, accepting non enum values
+
 const bugSchema = new mongoose.Schema(
   {
     issue: {
