@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/auth", require("./routes/auth"));
 app.use("/bugs", require("./routes/bugs"));
