@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-// !Need to fix enum issue, accepting non enum values
-
 const bugSchema = new mongoose.Schema(
   {
     issue: {
@@ -23,17 +21,8 @@ const bugSchema = new mongoose.Schema(
       enum: ["Open", "In Progress", "Completed"],
       default: "Open",
     },
-    created: {
-      type: Date,
-      immutable: true,
-      default: Date.now,
-    },
-    lastUpdated: {
-      type: Date,
-      default: Date.now,
-    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Bugs", bugSchema);
+module.exports = mongoose.model("Bug", bugSchema);
