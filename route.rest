@@ -1,24 +1,24 @@
 GET http://localhost:3500/bugs
 
 ###
-GET http://localhost:3500/bugs/64c47a5595c5cb72072c5290
+GET http://localhost:3500/bugs/64cad471237470f3d3e1d211
 
 ###
 POST http://localhost:3500/bugs
 content-type: application/json
 
 {
-    "issue": "latest test",
-    "details": "return newest"
+    "issue": "finish auth routes",
+    "details": "need to add debugging"
 }
 
 ###
-PATCH http://localhost:3500/bugs/64c47a5595c5cb72072c5290
+PATCH http://localhost:3500/bugs/64cad471237470f3d3e1d211
 content-type: application/json
 
 {
-    "details": "eeeek again"
+    "notes": "notes for future use"
 }
 
 ###
-DELETE http://localhost:3500/bugs/64c41e53e2c20428eeb84842
+DELETE http://localhost:3500/bugs/64cad44ee23d8e2d6c91ab12
