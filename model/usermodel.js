@@ -21,6 +21,27 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Login Method
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("All Fields Required");
+  }
+
+  const user = await this.findOne({ email });
+  if (!user) {
+    throw Error("Incorrect Credentials");
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+
+  if (!match) {
+    throw Error("Incorrect Credentials");
+  }
+
+  return user;
+};
+
+// Hash password
 userSchema.pre("save", async function (next) {
   try {
     if (!this.isModified("password")) {

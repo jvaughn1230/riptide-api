@@ -22,3 +22,21 @@ content-type: application/json
 
 ###
 DELETE http://localhost:3500/bugs/64cad44ee23d8e2d6c91ab12
+
+###
+POST http://localhost:3500/auth/signup
+content-type: application/json
+
+{
+    "email": "vaughn2@gmail.com",
+    "password": "testing12345"
+}
+
+###
+POST http://localhost:3500/auth/login
+content-type: application/json
+
+{
+    "email": "vaughn2@gmail.com",
+    "password": "testing12345"
+}
