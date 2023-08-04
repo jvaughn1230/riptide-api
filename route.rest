@@ -1,24 +1,45 @@
 GET http://localhost:3500/bugs
 
 ###
-GET http://localhost:3500/bugs/64cad471237470f3d3e1d211
+GET http://localhost:3500/bugs/64cc281cc2380133281ff1cc
 
 ###
 POST http://localhost:3500/bugs
 content-type: application/json
 
 {
-    "issue": "finish auth routes",
-    "details": "need to add debugging"
+    "issue": "testing status",
+    "details": "testing status",
+    "priority": "High"  
 }
 
 ###
-PATCH http://localhost:3500/bugs/64cad471237470f3d3e1d211
+PATCH http://localhost:3500/bugs/64cc281cc2380133281ff1cc
 content-type: application/json
 
 {
-    "notes": "notes for future use"
+    "notes": "update check 12345",
+    "status": "Completed",
+    "priority": "meh"
 }
 
 ###
 DELETE http://localhost:3500/bugs/64cad44ee23d8e2d6c91ab12
+
+###
+POST http://localhost:3500/auth/signup
+content-type: application/json
+
+{
+    "email": "vaughn2@gmail.com",
+    "password": "testing12345"
+}
+
+###
+POST http://localhost:3500/auth/login
+content-type: application/json
+
+{
+    "email": "vaughn2@gmail.com",
+    "password": "testing12345"
+}

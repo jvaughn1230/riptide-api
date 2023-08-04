@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 const bugRoutes = require("./routes/bugs");
+const authRoutes = require("./routes/auth");
 
 mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
@@ -24,19 +25,9 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use("/auth", require("./routes/auth"));
+app.use("/auth", require("./routes/auth"));
 app.use("/bugs", bugRoutes);
 
 app.listen(process.env.port || 3500, () =>
   console.log(`Port is running on port ${process.env.PORT || 3500}`)
 );
-
-// Endpoints
-
-//signIn -> POST
-//Register -> POST
-//profile/:userId -> GET
-//addBug -> PUT
-//ViewBug -> GET
-
-// ssl:        true,
