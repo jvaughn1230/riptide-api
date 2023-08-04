@@ -1,23 +1,26 @@
 GET http://localhost:3500/bugs
 
 ###
-GET http://localhost:3500/bugs/64cad471237470f3d3e1d211
+GET http://localhost:3500/bugs/64cc281cc2380133281ff1cc
 
 ###
 POST http://localhost:3500/bugs
 content-type: application/json
 
 {
-    "issue": "finish auth routes",
-    "details": "need to add debugging"
+    "issue": "testing status",
+    "details": "testing status",
+    "priority": "High"  
 }
 
 ###
-PATCH http://localhost:3500/bugs/64cad471237470f3d3e1d211
+PATCH http://localhost:3500/bugs/64cc281cc2380133281ff1cc
 content-type: application/json
 
 {
-    "notes": "notes for future use"
+    "notes": "update check 12345",
+    "status": "Completed",
+    "priority": "meh"
 }
 
 ###

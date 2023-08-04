@@ -13,10 +13,10 @@ const bugSchema = new mongoose.Schema(
     notes: String,
     priority: {
       type: String,
-      enum: ["Low", "Medium", "High"],
+      enum: ["Low", "Regular", "High"],
       default: "Low",
     },
-    staus: {
+    status: {
       type: String,
       enum: ["Open", "In Progress", "Completed"],
       default: "Open",

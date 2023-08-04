@@ -31,11 +31,13 @@ const addBug = async (req, res) => {
 
 // PATCH
 const updateBug = async (req, res) => {
+  console.log("got bug");
   const updates = req.body;
+  console.log("req received moving to try block");
   try {
-    await bugSchema.updateOne(res.bug, updates);
+    await bugSchema.updateOne(res.bug, updates, { runValidators: true });
     res.json("updated");
-  } catch {
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
