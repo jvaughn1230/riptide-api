@@ -43,7 +43,7 @@ userSchema.statics.login = async function (email, password) {
 };
 
 // Static Signup Method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.register = async function (email, password) {
   if (!email || !password) {
     throw Error("All Fields Required");
   }
