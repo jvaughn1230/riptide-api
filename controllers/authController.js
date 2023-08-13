@@ -5,11 +5,11 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
-const signupUser = async (req, res) => {
+const registerUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.signup(email, password);
+    const user = await User.register(email, password);
 
     const token = createToken(user._id);
 
@@ -39,4 +39,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser };
+module.exports = { registerUser, loginUser };

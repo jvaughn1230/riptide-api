@@ -15,19 +15,32 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
 });
 
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("db connected"));
-
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:30000");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
+let corsOptions = {
+  origin: ["http://localhost:3000"],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/auth", require("./routes/auth"));
+app.use("/auth", authRoutes);
 app.use("/bugs", bugRoutes);
 
+const db = mongoose.connection;
+db.on("error", (error) => console.error(error));
+db.once("open", () => console.log("db connected"));
+
 app.listen(process.env.port || 3500, () =>
-  console.log(`Port is running on port ${process.env.PORT || 3500}`)
+  console.log(`Server is running on port ${process.env.PORT || 3500}`)
 );
