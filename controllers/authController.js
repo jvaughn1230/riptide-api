@@ -6,10 +6,10 @@ const createToken = (id) => {
 };
 
 const registerUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
   try {
-    const user = await User.register(email, password);
+    const user = await User.register(email, password, name);
 
     const token = createToken(user._id);
 

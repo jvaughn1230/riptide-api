@@ -43,7 +43,7 @@ userSchema.statics.login = async function (email, password) {
 };
 
 // Static Signup Method
-userSchema.statics.register = async function (email, password) {
+userSchema.statics.register = async function (email, password, name) {
   if (!email || !password) {
     throw Error("All Fields Required");
   }
@@ -67,7 +67,7 @@ userSchema.statics.register = async function (email, password) {
 
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ email, password: hashedPassword });
+  const user = await this.create({ email, name, password: hashedPassword });
 
   return user;
 };
