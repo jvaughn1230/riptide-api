@@ -27,3 +27,14 @@ content-type: application/json
 DELETE http://localhost:3500/bugs/64cad44ee23d8e2d6c91ab12
 
 
+###
+POST http://localhost:3500/auth/register
+Content-Type: application/json
+
+{
+    "name": "Alex",
+    "email": "xandar@gmail.com",
+    "password":"Jur@ssic3"
+} 
+
+
