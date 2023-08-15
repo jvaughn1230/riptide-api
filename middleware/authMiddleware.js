@@ -1,7 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 const requireAuth = (req, res, next) => {
-  const token = req.cookie.jwt;
+  const token = req.cookie.jwt.sign(user, JWT_SECRET, { expiresIn: "15m" });
+
+  // Working Here
+
+  //End
 
   if (token) {
     jwt.verify(token, JWT_SECRET, (err, decodedToken) => {

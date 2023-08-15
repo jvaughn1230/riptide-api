@@ -20,6 +20,7 @@ const addBug = async (req, res) => {
   const bug = new bugSchema({
     issue: req.body.issue,
     details: req.body.details,
+    user_id: req.user._id,
   });
   try {
     const newBug = await bug.save();
