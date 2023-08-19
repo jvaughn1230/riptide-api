@@ -32,9 +32,9 @@ POST http://localhost:3500/auth/register
 Content-Type: application/json
 
 {
-    "name": "Alex",
-    "email": "xandar@gmail.com",
-    "password":"Jur@ssic3"
+    "name": "maira",
+    "email": "maira3@gmail.com",
+    "password":"M@ira1992"
 } 
 
 

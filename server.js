@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:30000");
+  // TODO: Change back after testing on Postman
+  res.setHeader("Access-Control-Allow-Origin", "*"); //Change to front url when hosted & localhost3000 when testing frontend
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
