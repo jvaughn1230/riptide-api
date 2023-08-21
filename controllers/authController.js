@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
     // res.cookie("jwt", token, { httpOnly: true });
     res.cookie("jwt", refreshToken, {
       // TODO: Reactivate httpOnly after testing on Postman
-      // httpOnly: true,
+      httpOnly: true,
       // secure: true,   Turn on when hosted
       sameSite: "None",
       maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
     const refreshToken = createRefreshToken(user._id);
 
     res.cookie("jwt", refreshToken, {
-      // httpOnly: true,
+      httpOnly: true,
       // secure: true,   Turn on when hosted
       sameSite: "None",
       maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -63,32 +63,33 @@ const loginUser = async (req, res) => {
   }
 };
 
-const refresh = async (req, res) => {
-  console.log("refresh started");
+const refresh = (req, res) => {
   const cookies = req.cookies;
 
   if (!cookies?.jwt)
     return res.status(401).json({ message: "token Unauthorized" });
 
-  const refreshToken = cookies.refresh_token;
-  console.log("NEw Refresh Token made");
+  const refreshToken = cookies.jwt;
 
-  jwt.verify(
-    refreshToken,
-    process.env.JWT_REFRESH_SECRET,
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ message: "forbidden" });
 
-    async (req, res) => {
-      // if (err) return res.status(403).json({ message: "forbidden" });
+    // Finding User
+    const user = User.findOne({ email: decoded.email }).exec();
+    if (!user) return res.status(401).json({ message: "user unauthorized" });
 
-      const user = await User.findOne({ email: decoded.email }).exec();
-
-      if (!user) return res.status(401).json({ message: "user unauthorized" });
-
-      const accessToken = createAccessToken(user._id);
-      console.log("New Access Token Created");
-      res.json(accessToken);
-    }
-  );
+    // Creating New Access Token
+    const accessToken = createAccessToken(user._id);
+    res.status(200).json(accessToken);
+  });
 };
 
-module.exports = { registerUser, loginUser, refresh };
+const logout = (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204);
+
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+  res.json({ message: "Cookie Cleared" });
+};
+
+module.exports = { registerUser, loginUser, refresh, logout };

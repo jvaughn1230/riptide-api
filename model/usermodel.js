@@ -29,6 +29,7 @@ userSchema.statics.login = async function (email, password) {
   }
 
   const user = await this.findOne({ email });
+
   if (!user) {
     throw Error("Incorrect Credentials");
   }
