@@ -35,6 +35,14 @@ Content-Type: application/json
     "name": "maira",
     "email": "maira3@gmail.com",
     "password":"M@ira1992"
-} 
+}
+
+###
+POST http://localhost:3500/auth/refresh
+Content-Type: application/json
+{
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZGZmZTJiOTYwNGMwOTQyNzU5OGM1OSIsImlhdCI6MTY5MjQwMTE5NSwiZXhwIjoxNjkzMDA1OTk1fQ.rvhK_o--RSwRc5smUKaICIYXyyj5Y_FmVgx9k6srmv0"
+}
+
 
 
