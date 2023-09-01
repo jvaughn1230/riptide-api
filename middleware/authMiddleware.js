@@ -1,11 +1,8 @@
 const jwt = require("jsonwebtoken");
 
 const requireAuth = (req, res, next) => {
+  //TODO: We are running the JWT with the JWT_SECRET, are we receiving JWT or are we receiving refresh??
   const token = req.cookie.jwt.sign(user, JWT_SECRET, { expiresIn: "15m" });
-
-  // Working Here
-
-  //End
 
   if (token) {
     jwt.verify(token, JWT_SECRET, (err, decodedToken) => {

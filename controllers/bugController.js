@@ -16,7 +16,6 @@ const getBug = (req, res) => {
 
 // POST
 const addBug = async (req, res) => {
-  console.log("started addBug");
   const bug = new bugSchema({
     issue: req.body.issue,
     details: req.body.details,
@@ -32,9 +31,7 @@ const addBug = async (req, res) => {
 
 // PATCH
 const updateBug = async (req, res) => {
-  console.log("got bug");
   const updates = req.body;
-  console.log("req received moving to try block");
   try {
     await bugSchema.updateOne(res.bug, updates, { runValidators: true });
     res.json("updated");

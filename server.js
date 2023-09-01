@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   // TODO: Change back after testing on Postman
-  res.setHeader("Access-Control-Allow-Origin", "*"); //Change to front url when hosted & localhost3000 when testing frontend
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); //Change to front url when hosted & localhost3000 when testing frontend
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
