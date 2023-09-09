@@ -2,8 +2,9 @@ const bugSchema = require("../model/bugModel");
 
 // GET
 const getBugs = async (req, res) => {
+  const user_id = req.user._id;
   try {
-    const bugs = await bugSchema.find({});
+    const bugs = await bugSchema.find({ user_id });
     res.status(200).json(bugs);
   } catch {
     res.status(500).json(err.message);

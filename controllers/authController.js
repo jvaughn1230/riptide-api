@@ -2,8 +2,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/usermodel");
 
 // TODO: Turn on Secure for both below
-// TODO: Change expiration time for testing purposes then change back once done
-// TODO: delete console.logs of tokens once testing is done
 
 const createAccessToken = (id) => {
   return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
@@ -46,14 +44,9 @@ const loginUser = async (req, res) => {
 
   try {
     const user = await User.login(email, password);
-    // console.log(user);
 
     const accessToken = createAccessToken(user._id);
-    console.log("Token Created:");
-    console.log(accessToken);
     const refreshToken = createRefreshToken(user._id);
-    console.log("Refresh Token created:");
-    console.log(refreshToken);
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
@@ -83,25 +76,18 @@ const refresh = (req, res) => {
       if (err) return res.status(403).json({ message: "forbidden" });
 
       // Finding User
-      console.log("decoded:");
-      console.log(decoded);
-      console.log("Searching for user");
 
       const user = await User.findOne({ _id: decoded.id }).exec(); //removed .exec
       if (!user) return res.status(401).json({ message: "user unauthorized" });
 
       // Creating New Access Token
-      console.log("creating new access Token");
       const accessToken = createAccessToken(user._id);
 
-      console.log("user: ");
-      console.log(user);
       res.status(200).json({ user, accessToken, refreshToken });
     }
   );
 };
 
-// TODO: Test Logout
 const logout = (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);

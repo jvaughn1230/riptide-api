@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-// TODO: Are we receiving the access Token or refresh Token here?
-
 const verifyJWT = (req, res, next) => {
   const authHeader = req.header["authorization"] || req.header["Authorization"];
 
