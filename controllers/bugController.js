@@ -2,11 +2,15 @@ const bugSchema = require("../model/bugModel");
 
 // GET
 const getBugs = async (req, res) => {
-  const user_id = req.user._id;
+  console.log("Get Bugs started");
+  const user_id = res.user._id;
+  console.log("User Id Found");
   try {
     const bugs = await bugSchema.find({ user_id });
+    console.log(bugs);
     res.status(200).json(bugs);
   } catch {
+    console.log("error");
     res.status(500).json(err.message);
   }
 };
@@ -20,7 +24,7 @@ const addBug = async (req, res) => {
   const bug = new bugSchema({
     issue: req.body.issue,
     details: req.body.details,
-    user_id: req.user._id,
+    user_id: res.user._id,
   });
   try {
     const newBug = await bug.save();
