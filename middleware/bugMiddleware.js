@@ -3,7 +3,7 @@ const bugSchema = require("../model/bugModel");
 async function fetchBug(req, res, next) {
   let bug;
   try {
-    bug = await bugSchema.findById(req.params.id);
+    bug = await bugSchema.findById(req.params.id); //.find({completed: false})
     if (bug == null) {
       return res.status(404).json({ message: "Cannot find bug" });
     }

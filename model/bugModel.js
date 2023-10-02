@@ -6,11 +6,14 @@ const bugSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    details: {
+    recreate: {
       type: String,
       required: true,
     },
-    notes: String,
+    updates: {
+      type: String,
+      default: "",
+    },
     priority: {
       type: String,
       enum: ["Low", "Regular", "High"],
@@ -21,10 +24,33 @@ const bugSchema = new mongoose.Schema(
       enum: ["Open", "In Progress", "Completed"],
       default: "Open",
     },
-    user_id: {
+    due: {
       type: String,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+    completedAt: {
+      type: Date,
+      default: null,
+    },
+    project: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
+      default: null,
+    },
+    // type: String, required: true
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
+    // project: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Project",
+    //   default: "",
+    // },
   },
   { timestamps: true }
 );

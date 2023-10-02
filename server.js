@@ -9,6 +9,7 @@ const app = express();
 
 const bugRoutes = require("./routes/bugs");
 const authRoutes = require("./routes/auth");
+const projectRoutes = require("./routes/projects");
 
 mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
@@ -37,6 +38,7 @@ app.use(cookieParser());
 
 app.use("/auth", authRoutes);
 app.use("/bugs", bugRoutes);
+app.use("/projects", projectRoutes);
 
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
