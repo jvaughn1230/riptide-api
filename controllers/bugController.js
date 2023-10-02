@@ -4,7 +4,9 @@ const bugSchema = require("../model/bugModel");
 const getBugs = async (req, res) => {
   const user_id = res.user._id;
   try {
-    const bugs = await bugSchema.find({ user_id });
+    const bugs = await bugSchema
+      .find({ user_id, completed: false })
+      .populate("project", "name");
     res.status(200).json(bugs);
   } catch {
     res.status(500).json(err.message);
@@ -19,7 +21,10 @@ const getBug = (req, res) => {
 const addBug = async (req, res) => {
   const bug = new bugSchema({
     issue: req.body.issue,
-    details: req.body.details,
+    recreate: req.body.recreate,
+    priority: req.body.priority,
+    project: req.body.project,
+    due: req.body.due,
     user_id: res.user._id,
   });
   try {
@@ -32,12 +37,25 @@ const addBug = async (req, res) => {
 
 // PATCH
 const updateBug = async (req, res) => {
-  const updates = req.body;
-  try {
-    await bugSchema.updateOne(res.bug, updates); //{ runValidators: true }
-    res.json("updated");
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  let updates = req.body;
+
+  if (updates.completed === true) {
+    console.log("Completed is true");
+    updates.completedAt = new Date();
+    try {
+      await bugSchema.updateOne(res.bug, updates);
+      res.json("updated");
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  } else {
+    console.log("completed is false");
+    try {
+      await bugSchema.updateOne(res.bug, updates); //{ runValidators: true }
+      res.json("updated");
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   }
 };
 
