@@ -40,7 +40,6 @@ const updateBug = async (req, res) => {
   let updates = req.body;
 
   if (updates.completed === true) {
-    console.log("Completed is true");
     updates.completedAt = new Date();
     try {
       await bugSchema.updateOne(res.bug, updates);
@@ -49,7 +48,6 @@ const updateBug = async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   } else {
-    console.log("completed is false");
     try {
       await bugSchema.updateOne(res.bug, updates); //{ runValidators: true }
       res.json("updated");

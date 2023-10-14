@@ -15,8 +15,8 @@ const bugSchema = new mongoose.Schema(
       default: "",
     },
     priority: {
-      type: String,
-      enum: ["Low", "Regular", "High"],
+      type: Number,
+      enum: [1, 2, 3],
       default: "Low",
     },
     status: {
@@ -25,7 +25,7 @@ const bugSchema = new mongoose.Schema(
       default: "Open",
     },
     due: {
-      type: String,
+      type: Date,
     },
     completed: {
       type: Boolean,
