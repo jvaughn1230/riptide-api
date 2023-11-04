@@ -5,7 +5,7 @@ const getBugs = async (req, res) => {
   const user_id = res.user._id;
   try {
     const bugs = await bugSchema
-      .find({ user_id, completed: false })
+      .find({ user_id, status: { $ne: 3 } })
       .populate("project", "name");
     res.status(200).json(bugs);
   } catch {
@@ -38,12 +38,13 @@ const addBug = async (req, res) => {
 // PATCH
 const updateBug = async (req, res) => {
   let updates = req.body;
+  console.log(updates);
 
-  if (updates.completed === true) {
+  if (updates.status === "3") {
     updates.completedAt = new Date();
     try {
       await bugSchema.updateOne(res.bug, updates);
-      res.json("updated");
+      res.status(200).json("updated");
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

@@ -17,19 +17,15 @@ const bugSchema = new mongoose.Schema(
     priority: {
       type: Number,
       enum: [1, 2, 3],
-      default: "Low",
+      default: 2,
     },
     status: {
-      type: String,
-      enum: ["Open", "In Progress", "Completed"],
-      default: "Open",
+      type: Number,
+      enum: [1, 2, 3],
+      default: 1,
     },
     due: {
       type: Date,
-    },
-    completed: {
-      type: Boolean,
-      default: false,
     },
     completedAt: {
       type: Date,
