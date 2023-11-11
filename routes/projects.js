@@ -12,6 +12,8 @@ router.get("/", projectController.getProjects);
 
 router.post("/", projectController.addProject);
 
-router.delete("/", fetchProject, projectController.deleteProject);
+router.patch("/:id", fetchProject, projectController.updateProject);
+
+router.delete("/:id", fetchProject, projectController.deleteProject);
 
 module.exports = router;
