@@ -25,6 +25,17 @@ const addProject = async (req, res) => {
   }
 };
 
+const updateProject = async (req, res) => {
+  let updates = req.body;
+
+  try {
+    await projectsSchema.updateOne(res.project, updates);
+    res.json("updated");
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const deleteProject = async (req, res) => {
   try {
     await res.project.deleteOne();
@@ -36,4 +47,4 @@ const deleteProject = async (req, res) => {
   }
 };
 
-module.exports = { getProjects, addProject, deleteProject };
+module.exports = { getProjects, addProject, deleteProject, updateProject };

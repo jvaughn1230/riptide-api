@@ -38,7 +38,6 @@ const addBug = async (req, res) => {
 // PATCH
 const updateBug = async (req, res) => {
   let updates = req.body;
-  console.log(updates);
 
   if (updates.status === "3") {
     updates.completedAt = new Date();
