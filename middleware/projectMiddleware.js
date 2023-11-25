@@ -4,7 +4,7 @@ async function fetchProject(req, res, next) {
   let project;
 
   try {
-    project = await projectSchema.findById(req.params.project); //.find({completed: false})
+    project = await projectSchema.findById(req.params.id); //.find({completed: false})
     if (project == null) {
       return res.status(404).json({ message: "Cannot find project" });
     }
