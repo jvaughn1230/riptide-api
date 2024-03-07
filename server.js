@@ -43,7 +43,7 @@ app.use("/bugs", bugRoutes);
 app.use("/projects", projectRoutes);
 
 const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
+db.on("error", (error) => console.error("DB Error", error));
 db.once("open", () => console.log("db connected"));
 
 app.listen(process.env.port || 3500, () =>
