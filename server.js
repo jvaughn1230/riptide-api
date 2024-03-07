@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 let corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: ["https://riptidetracker.netlify.app"],
 };
 
 app.use(cors(corsOptions));
