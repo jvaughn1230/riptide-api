@@ -19,11 +19,10 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  // TODO: Change back after testing on Postman
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "https://riptidetracker.netlify.app"
-  ); //Change to front url when hosted & localhost3000 when testing frontend
+    "https://riptidebugtracker.onrender.com/"
+  );
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -31,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 let corsOptions = {
-  origin: ["https://riptidetracker.netlify.app"],
+  origin: ["https://riptidebugtracker.onrender.com/"],
 };
 
 app.use(cors(corsOptions));
