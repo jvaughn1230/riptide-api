@@ -22,6 +22,7 @@ app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://riptidebugtracker.onrender.com"
+    // "http://localhost:3000"
   );
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -30,7 +31,9 @@ app.use((req, res, next) => {
 });
 
 let corsOptions = {
-  origin: ["https://riptidebugtracker.onrender.com/"],
+  // TODO: change back before commits
+  // origin: ["https://riptidebugtracker.onrender.com/"],
+  origin: ["http://localhost:3000"],
 };
 
 app.use(cors(corsOptions));
