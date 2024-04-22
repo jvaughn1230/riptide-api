@@ -1,20 +1,22 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/usermodel");
 
-// TODO: Turn on Secure for both below
-
+// JWT Tokens
 const createAccessToken = (id) => {
   return jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "15m",
+    secure: true,
   });
 };
 
 const createRefreshToken = (id) => {
   return jwt.sign({ id }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "7d",
+    secure: true,
   });
 };
 
+// Regiser User
 const registerUser = async (req, res) => {
   const { email, password, name } = req.body;
 
@@ -39,6 +41,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+// Login User
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -61,6 +64,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Refresh Token
 const refresh = (req, res) => {
   const cookies = req.cookies;
 
@@ -76,7 +80,6 @@ const refresh = (req, res) => {
       if (err) return res.status(403).json({ message: "forbidden" });
 
       // Finding User
-
       const user = await User.findOne({ _id: decoded.id }).exec(); //removed .exec
       if (!user) return res.status(401).json({ message: "user unauthorized" });
 
@@ -88,6 +91,7 @@ const refresh = (req, res) => {
   );
 };
 
+// Logout
 const logout = (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204);
