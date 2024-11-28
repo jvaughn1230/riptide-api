@@ -35,7 +35,8 @@ const registerUser = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    res.status(400).json(error);
+    res.status(400).json({
+      message: error.message} || 'An error occured during registration.');
   }
 };
 
@@ -58,7 +59,9 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({ user, accessToken, refreshToken });
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({
+      message: error.message || 'An error occurred during login.',
+    });
   }
 };
 
