@@ -25,19 +25,19 @@ const userSchema = new mongoose.Schema({
 // Static Login Method
 userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
-    throw Error("Email and Password are required");
+    throw new Error("Email and Password are required");
   }
 
   const user = await this.findOne({ email });
 
   if (!user) {
-    throw Error("Incorrect Credentials");
+    throw new Error("Incorrect Credentials");
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw Error("Incorrect Credentials");
+    throw new Error("Incorrect Credentials");
   }
 
   return user;
@@ -46,22 +46,22 @@ userSchema.statics.login = async function (email, password) {
 // Static Signup Method
 userSchema.statics.register = async function (email, password, name) {
   if (!email || !password) {
-    throw Error("All Fields Required");
+    throw new Error("All Fields Required");
   }
 
   if (!validator.isEmail(email)) {
-    throw Error("Email is not valid");
+    throw new Error("Email is not valid");
   }
 
   if (!validator.isStrongPassword(password)) {
-    throw Error(
+    throw new Error(
       "Password not strong enough. Password needs to inlude both lower and upper case letters, at leaset one number, and at least  one symbol"
     );
   }
 
   const exists = await this.findOne({ email });
   if (exists) {
-    throw Error("Email already in use");
+    throw new Error("Email already in use");
   }
 
   const salt = await bcrypt.genSalt(10);
